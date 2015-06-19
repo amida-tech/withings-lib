@@ -15,7 +15,9 @@
     "withings-lib",
     "withings"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "oauth": "^0.9.13"
+  },
   "devDependencies": {
     "chai": "^3.0.0",
     "grunt-cli": "^0.1.13",
