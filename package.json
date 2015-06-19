@@ -1,0 +1,32 @@
+{
+  "name": "withings-lib",
+  "version": "0.0.0",
+  "description": "Withings API library for node.js",
+  "author": {
+    "name": "Jacob Sachs",
+    "email": "jacob@amida-tech.com"
+  },
+  "repository": "jsachs/withings-lib",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "withings-lib",
+    "withings"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-cli": "^1.12.0",
+    "jshint-stylish": "^1.0.1",
+    "load-grunt-tasks": "^3.1.0",
+    "time-grunt": "^1.1.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
