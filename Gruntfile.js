@@ -8,18 +8,45 @@ module.exports = function (grunt) {
   grunt.initConfig({
     jshint: {
       options: {
-        jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        browser: true,
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        sub: true,
+        undef: false,
+        boss: true,
+        eqnull: true,
+        node: true,
+        expr: true,
+        globals: {
+            'xit': true,
+            'xdescribe': true,
+            'it': true,
+            'describe': true,
+            'before': true,
+            'after': true,
+            'done': true
+        }
       },
       gruntfile: {
         src: ['Gruntfile.js']
       },
       js: {
-        src: ['*.js']
+        src: ['*.js', 'lib/**/*.js']
       },
       test: {
         src: ['test/**/*.js']
       }
+    },
+    jsbeautifier: {
+        files: ['Gruntfile.js', 'index.js', '*.js', 'lib/*.js', 'test/**/*.js'],
+        options: {
+            config: '.jsbeautifyrc'
+        }
     },
     mochacli: {
       options: {

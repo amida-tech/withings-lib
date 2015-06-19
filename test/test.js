@@ -1,10 +1,12 @@
-'use strict';
-var assert = require('assert');
-var withingsLib = require('../');
+var expect = require('chai').expect;
+var assert = require('chai').assert;
 
-describe('withings-lib node module', function () {
-  it('must have at least one test', function () {
-    withingsLib();
-    assert(false, 'I was too lazy to write any tests. Shame on me.');
-  });
+before(function (done) {
+    // clear db and other stuff
+    done();
+});
+
+after(function (done) {
+    // do some stuff
+    done();
 });

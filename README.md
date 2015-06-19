@@ -14,14 +14,21 @@ $ npm install --save withings-lib
 
 ```js
 var withingsLib = require('withings-lib');
-
-withingsLib('Rainbow');
 ```
 
 
+
+## Contributing
+
+Contributors are welcome. See issues https://github.com/amida-tech/withings-lib/issues
+
+## Release Notes
+
+See release notes [here](./RELEASENOTES.md)
+
 ## License
 
-MIT © [Jacob Sachs]()
+Licensed under [Apache 2.0](./LICENSE)
 
 
 [npm-image]: https://badge.fury.io/js/withings-lib.svg
