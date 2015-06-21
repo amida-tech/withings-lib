@@ -16,7 +16,11 @@
     "withings"
   ],
   "dependencies": {
-    "oauth": "^0.9.13"
+    "base64": "^2.1.0",
+    "crypto-js": "^3.1.5",
+    "oauth": "^0.9.13",
+    "request": "^2.58.0",
+    "urlencode": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
