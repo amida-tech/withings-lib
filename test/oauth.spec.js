@@ -53,6 +53,10 @@ describe('Withings OAuth functionality:', function() {
             }
         });
     });
+    
+    it('generate an access token', function(done) {
+        
+    });
      
 });
 
