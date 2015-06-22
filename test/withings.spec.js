@@ -25,7 +25,7 @@ describe('Withings API Client:', function () {
     describe('OAuth functionality:', function (done) {
 
         it('get an OAuth request token', function (done) {
-            client.getRequestToken(function(err, token, tokenSecret, res) {
+            client.getRequestToken(function(err, token, tokenSecret) {
                 if (err) {
                     done(err);
                 }
@@ -35,8 +35,16 @@ describe('Withings API Client:', function () {
             });
         });
 
-        xit('authorize an end-user', function (done) {
-
+        it('authorize an end-user', function (done) {
+            client.getRequestToken(function(err, token, tokenSecret) {
+                if (err) {
+                    done(err);
+                }
+                var url = client.authorizeUrl(token, tokenSecret);
+                expect(url).to.exist;
+                console.log(url);
+                done();
+            });
         });
 
         xit('generate an access token', function (done) {
