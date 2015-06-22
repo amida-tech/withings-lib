@@ -18,14 +18,14 @@ before(function (done) {
 describe('Withings API Client:', function () {
 
     describe('OAuth functionality:', function () {
-        
+
         beforeEach(function (done) {
             client = new Withings(options);
             done();
         });
 
         it('get an OAuth request token', function (done) {
-            client.getRequestToken(function(err, token, tokenSecret) {
+            client.getRequestToken(function (err, token, tokenSecret) {
                 if (err) {
                     done(err);
                 }
@@ -36,7 +36,7 @@ describe('Withings API Client:', function () {
         });
 
         it('authorize an end-user', function (done) {
-            client.getRequestToken(function(err, token, tokenSecret) {
+            client.getRequestToken(function (err, token, tokenSecret) {
                 if (err) {
                     done(err);
                 }
@@ -47,26 +47,26 @@ describe('Withings API Client:', function () {
         });
 
         xit('generate an access token', function (done) {
-            done(); 
+            done();
         });
-        
+
         xit('error when making an unauthorized API call', function (done) {
             done();
         });
 
     });
-    
+
     describe('API calls:', function () {
-        
+
         beforeEach(function (done) {
             client = new Withings(options);
             done();
         });
-        
-        xit('make an API call', function(done){
+
+        xit('make an API call', function (done) {
             done();
         });
-        
+
     });
 
 });
