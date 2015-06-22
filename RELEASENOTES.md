@@ -1,9 +1,8 @@
-# [PROJECT_NAME] Release Notes
+# withings-lib Release Notes
 
-# v1.0.0 - Month DD, YYYY
+# v0.1.0 - June 22, 2015
 
-[Description of release]
+Initial release:
 
-- [feature #1]
-- [feature #2]
-- [feature #3]
+- Basic OAuth flow
+- Simple `get` method for accessing resources

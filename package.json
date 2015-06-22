@@ -1,18 +1,22 @@
 {
   "name": "withings-lib",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Withings API library for node.js",
   "author": {
     "name": "Jacob Sachs",
     "email": "jacob@amida-tech.com"
   },
-  "repository": "jsachs/withings-lib",
-  "license": "MIT",
+  "repository": "amida-tech/withings-lib",
+  "licenses": [
+    {
+      "type": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ],
   "files": [
     "index.js"
   ],
   "keywords": [
-    "withings-lib",
     "withings"
   ],
   "dependencies": {

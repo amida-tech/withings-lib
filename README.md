@@ -1,6 +1,7 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# withings-lib
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-> Withings API library for node.js
+Withings API library for node.js
 
 
 ## Install
@@ -13,22 +14,97 @@ $ npm install --save withings-lib
 ## Usage
 
 ```js
-var withingsLib = require('withings-lib');
+var express = require('express')
+var config = require('./config/app')
+var app = express()
+var Withings = require('withings-lib');
+
+app.use(express.cookieParser());
+app.use(express.session({secret: 'bigSecret'}));
+app.listen(3000);
+
+// OAuth flow
+app.get('/', function (req, res) {
+    // Create an API client and start authentication via OAuth
+    var options = {
+        consumerKey: config.CONSUMER_KEY,
+        consumerSecret: config.CONSUMER_SECRET
+    };
+    var client = new Withings(options);
+
+    client.getRequestToken(function (err, token, tokenSecret) {
+        if (err) {
+            // Throw error
+            return;
+        }
+
+        req.session.oauth = {
+            requestToken: token,
+            requestTokenSecret: tokenSecret
+        };
+        
+        res.redirect(client.authorizeUrl(token, tokenSecret));
+    });
+});
+
+// On return from the authorization
+app.get('/oauth_callback', function (req, res) {
+    var verifier = req.query.oauth_verifier
+    var oauthSettings = req.session.oauth
+    var options = {
+        consumerKey: config.CONSUMER_KEY,
+        consumerSecret: config.CONSUMER_SECRET
+    };
+    var client = new Withings(options);
+
+    // Request an access token
+    client.getAccessToken(oauthSettings.requestToken, oauthSettings.requestTokenSecret, verifier,
+        function (err, token, secret) {
+            if (err) {
+                // Throw error
+                return;
+            }
+
+            oauthSettings.accessToken = token;
+            oauthSettings.accessTokenSecret = secret;
+
+            res.redirect('/activity');
+        }
+    );
+});
+
+// Display the activity measures log for a user
+app.get('/activity', function (req, res) {
+    var options = {
+        consumerKey: config.CONSUMER_KEY,
+        consumerSecret: config.CONSUMER_SECRET,
+        accessToken: req.session.oauth.accessToken,
+        accessTokenSecret: req.session.oauth.accessTokenSecret
+    };
+    var client = new Withings(options);
+
+    client.get('measure', 'getactivity', {userid: 'amida'}, function(err, data) {
+        if (err) {
+            // Throw error
+            return;
+        }
+        
+        res.send('Activity log: ' + data.body);
+    });
+});
 ```
-
-
 
 ## Contributing
 
-Contributors are welcome. See issues https://github.com/amida-tech/withings-lib/issues
+Contributions are welcome. See issues [here](https://github.com/amida-tech/withings-lib/issues).
 
 ## Release Notes
 
-See release notes [here](./RELEASENOTES.md)
+See release notes [here](./RELEASENOTES.md).
 
 ## License
 
-Licensed under [Apache 2.0](./LICENSE)
+Licensed under [Apache 2.0](./LICENSE).
 
 
 [npm-image]: https://badge.fury.io/js/withings-lib.svg
