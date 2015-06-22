@@ -17,12 +17,12 @@ before(function (done) {
 
 describe('Withings API Client:', function () {
 
-    beforeEach(function(done) {
-        client = new Withings(options);
-        done();
-    });
-
-    describe('OAuth functionality:', function (done) {
+    describe('OAuth functionality:', function () {
+        
+        beforeEach(function (done) {
+            client = new Withings(options);
+            done();
+        });
 
         it('get an OAuth request token', function (done) {
             client.getRequestToken(function(err, token, tokenSecret) {
@@ -42,15 +42,31 @@ describe('Withings API Client:', function () {
                 }
                 var url = client.authorizeUrl(token, tokenSecret);
                 expect(url).to.exist;
-                console.log(url);
                 done();
             });
         });
 
         xit('generate an access token', function (done) {
-
+            done(); 
+        });
+        
+        xit('error when making an unauthorized API call', function (done) {
+            done();
         });
 
+    });
+    
+    describe('API calls:', function () {
+        
+        beforeEach(function (done) {
+            client = new Withings(options);
+            done();
+        });
+        
+        xit('make an API call', function(done){
+            done();
+        });
+        
     });
 
 });
