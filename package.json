@@ -7,12 +7,7 @@
     "email": "jacob@amida-tech.com"
   },
   "repository": "amida-tech/withings-lib",
-  "licenses": [
-    {
-      "type": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    }
-  ],
+  "license": "Apache 2.0",
   "files": [
     "index.js"
   ],
@@ -20,12 +15,7 @@
     "withings"
   ],
   "dependencies": {
-    "base64": "^2.1.0",
-    "crypto-js": "^3.1.5",
-    "lodash": "^3.9.3",
-    "oauth": "^0.9.13",
-    "request": "^2.58.0",
-    "urlencode": "^1.0.0"
+    "oauth": "^0.9.13"
   },
   "devDependencies": {
     "chai": "^3.0.0",
