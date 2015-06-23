@@ -20,6 +20,7 @@ var express = require('express')
 var config = require('./config/app')
 var app = express()
 var Withings = require('withings-lib');
+var cookieParser = require('cookie-parser');
 
 app.use(express.cookieParser());
 app.use(express.session({secret: 'bigSecret'}));
