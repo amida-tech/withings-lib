@@ -23,9 +23,13 @@
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-nodeunit": "^0.4.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsbeautifier": "^0.2.10",
     "grunt-mocha-cli": "^1.12.0",
+    "grunt-shell": "^1.1.2",
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.3",
     "time-grunt": "^1.1.0"
   },
   "scripts": {
