@@ -101,7 +101,24 @@ describe('Withings API Client:', function () {
             done();
         });
 
-        xit('make a GET request', function (done) {
+        it('make a GET request', function (done) {
+            var callback = sinon.spy();
+            var data = {
+                data: 'Test data'
+            };
+            var params = {
+                userid: 'amida'
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                expect(u).to.eq('http://wbsapi.withings.net/v2/measure?userid=amida&action=getactivity');
+                cb.call(void 0, null, data);
+            });
+            client.get('measure', 'getactivity', params, callback);
+
+            expect(callback.calledWith(null, data)).to.be.true;
+            expect(callback.calledOn(client)).to.be.true;
+
+            client._oauth.get.restore();
             done();
         });
 
