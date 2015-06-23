@@ -21,9 +21,10 @@ var config = require('./config/app')
 var app = express()
 var Withings = require('withings-lib');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
-app.use(express.cookieParser());
-app.use(express.session({secret: 'bigSecret'}));
+app.use(cookieParser());
+app.use(session({secret: 'bigSecret'}));
 app.listen(3000);
 
 // OAuth flow
