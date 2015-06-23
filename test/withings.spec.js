@@ -7,20 +7,16 @@ var Withings = require('../lib/withings');
 var options;
 var client;
 
-before(function (done) {
-    options = {
-        consumerKey: 'consumerKey',
-        consumerSecret: 'consumerSecret',
-        callbackUrl: 'amida-tech.com'
-    };
-    done();
-});
-
 describe('Withings API Client:', function () {
 
     describe('OAuth functionality:', function () {
 
         beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com'
+            };
             client = new Withings(options);
             done();
         });
@@ -74,11 +70,38 @@ describe('Withings API Client:', function () {
     describe('API calls:', function () {
 
         beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com',
+                accessToken: 'accessToken',
+                accessTokenSecret: 'accessTokenSecret'
+            };
             client = new Withings(options);
             done();
         });
 
-        xit('make an API call', function (done) {
+        it('make an API call', function (done) {
+            var callback = sinon.spy();
+            var data = {
+                data: 'Test data'
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                expect(u).to.eq('https://test.api.endpoint');
+                expect(t).to.eq('accessToken');
+                expect(ts).to.eq('accessTokenSecret');
+                cb.call(void 0, null, data);
+            });
+            client.apiCall('https://test.api.endpoint', callback);
+
+            expect(callback.calledWith(null, data)).to.be.true;
+            expect(callback.calledOn(client)).to.be.true;
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        xit('make a GET request', function (done) {
             done();
         });
 
