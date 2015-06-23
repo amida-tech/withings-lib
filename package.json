@@ -7,7 +7,7 @@
     "email": "jacob@amida-tech.com"
   },
   "repository": "amida-tech/withings-lib",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "main": "lib/withings.js",
   "keywords": [
     "withings"
