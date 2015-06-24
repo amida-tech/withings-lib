@@ -87,7 +87,7 @@ describe('Withings API Client:', function () {
                 data: 'Test data'
             };
             sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
-                expect(u).to.eq('https://test.api.endpoint');
+                expect(u).to.contain('https://test.api.endpoint');
                 expect(t).to.eq('accessToken');
                 expect(ts).to.eq('accessTokenSecret');
                 cb.call(void 0, null, data);
@@ -110,7 +110,7 @@ describe('Withings API Client:', function () {
                 userid: 'amida'
             };
             sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
-                expect(u).to.eq('http://wbsapi.withings.net/v2/measure?userid=amida&action=getactivity');
+                expect(u).to.contain('http://wbsapi.withings.net/v2/measure');
                 cb.call(void 0, null, data);
             });
             client.get('measure', 'getactivity', params, callback);
@@ -128,7 +128,7 @@ describe('Withings API Client:', function () {
                 data: 'Test data'
             };
             sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
-                expect(u).to.eq('http://wbsapi.withings.net/v2/measure?action=getactivity');
+                expect(u).to.contain('http://wbsapi.withings.net/v2/measure');
                 cb.call(void 0, null, data);
             });
             client.get('measure', 'getactivity', callback);
