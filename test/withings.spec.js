@@ -142,9 +142,40 @@ describe('Withings API Client:', function () {
 
     });
 
-});
+    describe('Get Activity measures:', function () {
 
-after(function (done) {
-    // do some stuff
-    done();
+        beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com',
+                accessToken: 'accessToken',
+                accessTokenSecret: 'accessTokenSecret'
+            };
+            client = new Withings(options);
+            done();
+        });
+
+        it('getDailySteps', function (done) {
+            var callback = sinon.spy();
+            var data = {
+                body: {
+                    steps: '5000'
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                expect(u).to.contain('http://wbsapi.withings.net/v2/measure');
+                cb.call(void 0, null, data);
+            });
+
+            client.getDailySteps(new Date(), function (err, steps) {
+                expect(steps).to.eq(data.body.steps);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+    });
+
 });
