@@ -13,6 +13,7 @@
     "withings"
   ],
   "dependencies": {
+    "moment": "^2.10.3",
     "oauth": "^0.9.13"
   },
   "devDependencies": {

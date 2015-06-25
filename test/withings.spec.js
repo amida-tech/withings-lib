@@ -75,7 +75,8 @@ describe('Withings API Client:', function () {
                 consumerSecret: 'consumerSecret',
                 callbackUrl: 'amida-tech.com',
                 accessToken: 'accessToken',
-                accessTokenSecret: 'accessTokenSecret'
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
             };
             client = new Withings(options);
             done();
@@ -107,7 +108,7 @@ describe('Withings API Client:', function () {
                 data: 'Test data'
             };
             var params = {
-                userid: 'amida'
+                date: 'YYYY-MM-DD'
             };
             sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
                 expect(u).to.contain('http://wbsapi.withings.net/v2/measure');
@@ -142,9 +143,228 @@ describe('Withings API Client:', function () {
 
     });
 
-});
+    describe('Get Activity measures:', function () {
 
-after(function (done) {
-    // do some stuff
-    done();
+        beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com',
+                accessToken: 'accessToken',
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
+            };
+            client = new Withings(options);
+            done();
+        });
+
+        it('getDailySteps', function (done) {
+            var data = {
+                body: {
+                    steps: '5000'
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getDailySteps(new Date(), function (err, steps) {
+                expect(steps).to.eq(data.body.steps);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getDailySteps error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getDailySteps(new Date(), function (err, steps) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getDailyCalories', function (done) {
+            var data = {
+                body: {
+                    calories: '3000'
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getDailyCalories(new Date(), function (err, cals) {
+                expect(cals).to.eq(data.body.calories);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getDailyCalories error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getDailyCalories(new Date(), function (err, cals) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+    });
+
+    describe('Get Body measures:', function () {
+
+        beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com',
+                accessToken: 'accessToken',
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
+            };
+            client = new Withings(options);
+            done();
+        });
+
+        it('getWeightMeasures', function (done) {
+            var data = {
+                body: {
+                    measuregrps: [{
+                        "measures": [{
+                            "value": 79300,
+                            "type": 1,
+                            "unit": -3
+                        }]
+                    }]
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getWeightMeasures(new Date(), new Date(), function (err, weights) {
+                expect(weights).to.eq(data.body.measuregrps);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getWeightMeasures error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getWeightMeasures(new Date(), new Date(), function (err, weights) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getPulseMeasures', function (done) {
+            var data = {
+                body: {
+                    measuregrps: [{
+                        "measures": [{
+                            "value": 600,
+                            "type": 11,
+                            "unit": -1
+                        }]
+                    }]
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getPulseMeasures(new Date(), new Date(), function (err, pulses) {
+                expect(pulses).to.eq(data.body.measuregrps);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getPulseMeasures error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getPulseMeasures(new Date(), new Date(), function (err, pulses) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+    });
+
+    describe('Get Sleep summary:', function () {
+
+        beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com',
+                accessToken: 'accessToken',
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
+            };
+            client = new Withings(options);
+            done();
+        });
+
+        it('getSleepSummary', function (done) {
+            var data = {
+                body: {
+                    series: [{
+                        "data": {
+                            "wakeupduration": 1800,
+                            "lightsleepduration": 18540,
+                            "deepsleepduration": 8460,
+                            "remsleepduration": 10460,
+                            "durationtosleep": 420,
+                            "durationtowakeup": 360,
+                            "wakeupcount": 3
+                        },
+                        "modified": 1412087110
+                    }]
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getSleepSummary(new Date(), new Date(), function (err, series) {
+                expect(series).to.eq(data.body.series);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getSleepSummary error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getSleepSummary(new Date(), new Date(), function (err, series) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+    });
+
 });

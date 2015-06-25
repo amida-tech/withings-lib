@@ -1,7 +1,9 @@
 # withings-lib
 [![NPM][npm-image]][npm-url]
 
-[![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+[![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
 
 Withings API library for node.js
 
@@ -115,5 +117,7 @@ Licensed under [Apache 2.0](./LICENSE).
 [npm-url]: https://nodei.co/npm/withings-lib/
 [travis-image]: https://travis-ci.org/amida-tech/withings-lib.svg?branch=master
 [travis-url]: https://travis-ci.org/amida-tech/withings-lib
+[coveralls-image]: https://coveralls.io/repos/amida-tech/withings-lib/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/r/amida-tech/withings-lib?branch=master
 [daviddm-image]: https://david-dm.org/amida-tech/withings-lib.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/amida-tech/withings-lib
