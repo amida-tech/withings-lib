@@ -75,7 +75,8 @@ describe('Withings API Client:', function () {
                 consumerSecret: 'consumerSecret',
                 callbackUrl: 'amida-tech.com',
                 accessToken: 'accessToken',
-                accessTokenSecret: 'accessTokenSecret'
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
             };
             client = new Withings(options);
             done();
@@ -107,7 +108,7 @@ describe('Withings API Client:', function () {
                 data: 'Test data'
             };
             var params = {
-                userid: 'amida'
+                date: 'YYYY-MM-DD'
             };
             sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
                 expect(u).to.contain('http://wbsapi.withings.net/v2/measure');
@@ -150,14 +151,14 @@ describe('Withings API Client:', function () {
                 consumerSecret: 'consumerSecret',
                 callbackUrl: 'amida-tech.com',
                 accessToken: 'accessToken',
-                accessTokenSecret: 'accessTokenSecret'
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
             };
             client = new Withings(options);
             done();
         });
 
         it('getDailySteps', function (done) {
-            var callback = sinon.spy();
             var data = {
                 body: {
                     steps: '5000'
