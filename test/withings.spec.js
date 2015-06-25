@@ -65,6 +65,17 @@ describe('Withings API Client:', function () {
             }
         });
 
+        it('error when making an API call with no user ID', function (done) {
+            client.accessToken = 'accessToken';
+            client.accessTokenSecret = 'accessTokenSecret';
+            try {
+                client.apiCall('https://test.api.endpoint', function () {});
+            } catch (ex) {
+                expect(ex.message).to.eq('API calls require a user ID');
+                done();
+            }
+        });
+
     });
 
     describe('API calls:', function () {
