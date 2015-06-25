@@ -165,12 +165,53 @@ describe('Withings API Client:', function () {
                 }
             };
             sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
-                expect(u).to.contain('http://wbsapi.withings.net/v2/measure');
                 cb.call(void 0, null, data);
             });
-
             client.getDailySteps(new Date(), function (err, steps) {
                 expect(steps).to.eq(data.body.steps);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getDailySteps error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getDailySteps(new Date(), function (err, steps) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getDailyCalories', function (done) {
+            var data = {
+                body: {
+                    calories: '3000'
+                }
+            };
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getDailyCalories(new Date(), function (err, cals) {
+                expect(cals).to.eq(data.body.calories);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getDailyCalories error', function (done) {
+            var error = new Error('ERROR');
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getDailyCalories(new Date(), function (err, cals) {
+                expect(err.message).to.eq('ERROR');
             });
 
             client._oauth.get.restore();
