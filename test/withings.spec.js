@@ -104,7 +104,7 @@ describe('Withings API Client:', function () {
                 expect(ts).to.eq('accessTokenSecret');
                 cb.call(void 0, null, data);
             });
-            client.apiCall('https://test.api.endpoint', callback);
+            client.apiCall('https://test.api.endpoint', 'get', callback);
 
             expect(callback.calledWith(null, data)).to.be.true;
             expect(callback.calledOn(client)).to.be.true;
