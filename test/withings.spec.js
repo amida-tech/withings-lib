@@ -378,4 +378,102 @@ describe('Withings API Client:', function () {
 
     });
 
+    describe('Notifications:', function (done) {
+
+        beforeEach(function (done) {
+            options = {
+                consumerKey: 'consumerKey',
+                consumerSecret: 'consumerSecret',
+                callbackUrl: 'amida-tech.com',
+                accessToken: 'accessToken',
+                accessTokenSecret: 'accessTokenSecret',
+                userID: 'userID'
+            };
+            client = new Withings(options);
+            done();
+        });
+
+        it('createNotification', function (done) {
+            var data = {
+                "status": 0
+            };
+            var cbUrl = 'http://test.url';
+            var comment = 'test comment';
+            var appli = 1;
+            sinon.stub(client._oauth, 'post', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.createNotification(cbUrl, comment, appli, function (err, status) {
+                expect(status).to.eq(data.status);
+            });
+
+            client._oauth.post.restore();
+            done();
+        });
+
+        it('getNotifications', function (done) {
+            var data = {
+                "status": 0,
+                "body": {
+                    "expires": 2147483647,
+                    "comment": "test comment"
+                }
+            };
+            var cbUrl = 'http://test.url';
+            var appli = 1;
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.getNotification(cbUrl, appli, function (err, body) {
+                expect(body).to.eq(data.body);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('listNotifications', function (done) {
+            var data = {
+                "status": 0,
+                "body": {
+                    "profiles": [{
+                        "expires": 2147483647,
+                        "comment": "http:\/\/www.withings.com"
+                    }, {
+                        "expires": 2147483647,
+                        "comment": "http:\/\/www.corp.withings.com"
+                    }]
+                }
+            };
+            var appli = 1;
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.listNotifications(appli, function (err, profiles) {
+                expect(profiles).to.eq(data.body.profiles);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('revokeNotifications', function (done) {
+            var data = {
+                "status": 0
+            };
+            var cbUrl = 'http://test.url';
+            var appli = 1;
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, null, data);
+            });
+            client.revokeNotification(cbUrl, appli, function (err, status) {
+                expect(status).to.eq(data.status);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+    });
+
 });
