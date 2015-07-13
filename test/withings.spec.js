@@ -6,6 +6,7 @@ var Withings = require('../lib/withings');
 
 var options;
 var client;
+var error = new Error('ERROR');
 
 describe('Withings API Client:', function () {
 
@@ -149,6 +150,24 @@ describe('Withings API Client:', function () {
             expect(callback.calledOn(client)).to.be.true;
 
             client._oauth.get.restore();
+            done();
+        });
+
+        it('make a POST request with no params', function (done) {
+            var callback = sinon.spy();
+            var data = {
+                data: 'Test data'
+            };
+            sinon.stub(client._oauth, 'post', function (u, t, ts, cb) {
+                expect(u).to.contain('http://wbsapi.withings.net/notify');
+                cb.call(void 0, null, data);
+            });
+            client.post('notify', 'subscribe', callback);
+
+            expect(callback.calledWith(null, data)).to.be.true;
+            expect(callback.calledOn(client)).to.be.true;
+
+            client._oauth.post.restore();
             done();
         });
 
@@ -411,6 +430,21 @@ describe('Withings API Client:', function () {
             done();
         });
 
+        it('createNotification error', function (done) {
+            var cbUrl = 'http://test.url';
+            var comment = 'test comment';
+            var appli = 1;
+            sinon.stub(client._oauth, 'post', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.createNotification(cbUrl, comment, appli, function (err, status) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.post.restore();
+            done();
+        });
+
         it('getNotifications', function (done) {
             var data = {
                 "status": 0,
@@ -426,6 +460,20 @@ describe('Withings API Client:', function () {
             });
             client.getNotification(cbUrl, appli, function (err, body) {
                 expect(body).to.eq(data.body);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('getNotifications error with optional params', function (done) {
+            var cbUrl = 'http://test.url';
+            var appli = 1;
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.getNotification(cbUrl, function (err, body) {
+                expect(err.message).to.eq('ERROR');
             });
 
             client._oauth.get.restore();
@@ -457,6 +505,19 @@ describe('Withings API Client:', function () {
             done();
         });
 
+        it('listNotifications error with optional params', function (done) {
+            var appli = 1;
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.listNotifications(function (err, profiles) {
+                expect(err.message).to.eq('ERROR');
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
         it('revokeNotifications', function (done) {
             var data = {
                 "status": 0
@@ -468,6 +529,20 @@ describe('Withings API Client:', function () {
             });
             client.revokeNotification(cbUrl, appli, function (err, status) {
                 expect(status).to.eq(data.status);
+            });
+
+            client._oauth.get.restore();
+            done();
+        });
+
+        it('revokeNotifications error with optional params', function (done) {
+            var cbUrl = 'http://test.url';
+            var appli = 1;
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
+                cb.call(void 0, error);
+            });
+            client.revokeNotification(cbUrl, function (err, status) {
+                expect(err.message).to.eq('ERROR');
             });
 
             client._oauth.get.restore();
