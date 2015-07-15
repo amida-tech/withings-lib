@@ -1,5 +1,9 @@
 # withings-lib Release Notes
 
+# v0.2.1 - July 15, 2015
+
+- Fixed a bug with parsing JSON strings in an API response
+
 # v0.2.0 - July 15, 2015
 
 - API wrappers for Measures
