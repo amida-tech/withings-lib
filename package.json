@@ -1,6 +1,6 @@
 {
   "name": "withings-lib",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Withings API library for node.js",
   "author": {
     "name": "Jacob Sachs",
