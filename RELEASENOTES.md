@@ -1,6 +1,9 @@
 # withings-lib Release Notes
 
-# v0.2.0 - TBD
+# v0.2.0 - July 15, 2015
+
+- API wrappers for Measures
+- Notification support
 
 # v0.1.1 - June 24, 2015
 
