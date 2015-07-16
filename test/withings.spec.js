@@ -419,14 +419,14 @@ describe('Withings API Client:', function () {
             var cbUrl = 'http://test.url';
             var comment = 'test comment';
             var appli = 1;
-            sinon.stub(client._oauth, 'post', function (u, t, ts, cb) {
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
                 cb.call(void 0, null, data);
             });
             client.createNotification(cbUrl, comment, appli, function (err, status) {
                 expect(status).to.eq(data.status);
             });
 
-            client._oauth.post.restore();
+            client._oauth.get.restore();
             done();
         });
 
@@ -434,14 +434,14 @@ describe('Withings API Client:', function () {
             var cbUrl = 'http://test.url';
             var comment = 'test comment';
             var appli = 1;
-            sinon.stub(client._oauth, 'post', function (u, t, ts, cb) {
+            sinon.stub(client._oauth, 'get', function (u, t, ts, cb) {
                 cb.call(void 0, error);
             });
             client.createNotification(cbUrl, comment, appli, function (err, status) {
                 expect(err.message).to.eq('ERROR');
             });
 
-            client._oauth.post.restore();
+            client._oauth.get.restore();
             done();
         });
 
