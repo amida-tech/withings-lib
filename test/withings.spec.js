@@ -423,7 +423,7 @@ describe('Withings API Client:', function () {
                 cb.call(void 0, null, data);
             });
             client.createNotification(cbUrl, comment, appli, function (err, status) {
-                expect(status).to.eq(data.status);
+                expect(status).to.eq(data);
             });
 
             client._oauth.get.restore();
@@ -528,7 +528,7 @@ describe('Withings API Client:', function () {
                 cb.call(void 0, null, data);
             });
             client.revokeNotification(cbUrl, appli, function (err, status) {
-                expect(status).to.eq(data.status);
+                expect(status).to.eq(data);
             });
 
             client._oauth.get.restore();
