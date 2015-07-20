@@ -1,5 +1,9 @@
 # withings-lib Release Notes
 
+# v0.2.2 - July 19, 2015
+
+- Notifications now subscribe with a GET request
+
 # v0.2.1 - July 15, 2015
 
 - Fixed a bug with parsing JSON strings in an API response
