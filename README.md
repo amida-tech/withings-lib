@@ -77,7 +77,7 @@ app.get('/oauth_callback', function (req, res) {
             oauthSettings.accessToken = token;
             oauthSettings.accessTokenSecret = secret;
 
-            res.redirect('/activity');
+            res.redirect('/activity/steps');
         }
     );
 });
